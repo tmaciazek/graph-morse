@@ -8,11 +8,12 @@ import os
 import time
 
 
-##########################
+#################
 #number of particles
-Npart=3
+Npart=2
 #n-th homology
 nhom=1
+
 #################################################################
 #################################################################
 '''
@@ -47,23 +48,36 @@ graph[2][3]=1
 graph[2][4]=-1
 graph[3][4]=1
 '''
-
-#K4
-print 'K4'
-N0=10
+#K5
+print 'K5'
+name="K5"
+N0=8
 graph=np.zeros((N0,N0))
 graph[0][1]=1
-graph[0][8]=-1
-graph[0][9]=-1
+graph[0][7]=-1
 graph[1][2]=1
+graph[1][5]=-1
+graph[1][6]=-1
 graph[2][3]=1
-graph[2][7]=-1
-graph[3][4]=1
-graph[4][5]=1
-graph[4][9]=1
+graph[2][4]=1
+graph[3][7]=-1
+graph[4][6]=-1
+graph[2][5]=1
+graph[5][7]=-1
 graph[5][6]=1
 graph[6][7]=1
-graph[6][8]=1
+'''
+#K4
+print 'K4'
+N0=4
+graph=np.zeros((N0,N0))
+graph[0][1]=1
+graph[0][2]=-1
+graph[0][3]=-1
+graph[1][2]=1
+graph[1][3]=1
+graph[2][3]=-1
+'''
 
 '''
 #K4
@@ -148,7 +162,57 @@ graph[2][3]=1
 graph[2][4]=1
 graph[2][5]=1
 '''
-
+'''
+#theta-4
+print 'Theta'
+N0=8
+graph=np.zeros((N0,N0))
+graph[0][1]=1
+graph[0][5]=-1
+graph[0][7]=-1
+graph[1][2]=1
+graph[2][3]=1
+graph[3][4]=1
+graph[3][6]=1
+graph[4][5]=1
+graph[6][7]=1
+'''
+'''
+#theta-5
+print 'Theta'
+N0=11
+graph=np.zeros((N0,N0))
+graph[0][1]=1
+graph[0][7]=-1
+graph[0][10]=-1
+graph[1][2]=1
+graph[2][3]=1
+graph[3][4]=1
+graph[4][5]=1
+graph[4][8]=1
+graph[5][6]=1
+graph[6][7]=1
+graph[8][9]=1
+graph[9][10]=1
+'''
+'''
+#theta4-3
+print 'Theta'
+N0=10
+graph=np.zeros((N0,N0))
+graph[0][1]=1
+graph[0][5]=-1
+graph[0][7]=-1
+graph[0][9]=-1
+graph[1][2]=1
+graph[2][3]=1
+graph[3][4]=1
+graph[3][6]=1
+graph[3][8]=1
+graph[4][5]=1
+graph[6][7]=1
+graph[8][9]=1
+'''
 ##############################
 graph=graph+np.transpose(graph)
 
@@ -240,6 +304,7 @@ def subdivision(Npart,graph0):
             break
     return divide_edges(graph)
     
+
 (tree,blocked_edges,del_edges,vert)=subdivision(Npart,graph)
 print 'tree: \t'+str(tree)
 print 'deleted edges: \t'+str(del_edges)
@@ -395,11 +460,9 @@ print "no. of critical "+str(0)+"-cells "+str(len(cellsnminus))
 cells1=find_crit_cells(1)
 gens=list(cells1)
 print "no. of generators: "+str(len(cells1))
-print "List of generators:"
-print gens
 cells2=find_crit_cells(2)
 print "no. of relators: "+str(len(cells2))
-print "Relators below:"
+
 for c2 in cells2:
     print c2
     bndc=boundary2(c2)
@@ -407,14 +470,124 @@ for c2 in cells2:
     while True:
         red=reduction2(letti,expsi,gens)
         letti,expsi=red[0],red[1]
-        if all(el in gens for el in letti):
+        if all([el in gens for el in letti]):
             break
     print [('g'+str(gens.index(letti[i])),expsi[i]) for i in xrange(len(letti))]
 
-    
-    
-    
+for i in xrange(len(gens)):
+    print 'g'+str(i)+':'+str(gens[i])
+'''
+#gamma
+#letti=[((5,9),1,2,4),((5, 6), 1, 2, 4),((5, 9), 1, 2, 6)]
+#letti=[((5,9),4),((5, 6),4),((5, 4),6),((5, 9),6),((5, 6),9),((5, 4),9)]
+#letti=[((5,9),4,7,8),((5, 6),4,7,8),((5, 4),6,7,8),((5, 9),6,7,8),((5, 6),7,8,9),((5, 4),7,8,9)]
+#letti=[((5,9),1,4,7),((5, 6),1,4,7),((5, 4),1,6,7),((5, 9),1,6,7),((5, 6),1,7,9),((5, 4),1,7,9)]
+#letti=[((5,9),1,4,10),((5, 6),1,4,10),((5, 4),1,6,10),((5, 9),1,6,10),((5, 6),1,9,10),((5, 4),1,9,10)]
+#letti=[((5,9),4,10,11),((5, 6),4,10,11),((5, 4),6,10,11),((5, 9),6,10,11),((5, 6),9,10,11),((5, 4),9,10,11)]
+#letti=[((5,9),4,10),((5, 6),4,10),((4, 5),6,10),((5, 9),6,10),((5, 6),9,10),((4, 5),9,10)]
+#expsi=[1,-1,-1,-1,1,1]
+
+#letti=[((1,11),2),((1, 8),2),((1, 2),8),((1, 11),8),((1, 8),11),((1, 2),11)]
+#expsi=[1,-1,1,-1,1,-1]
 
 
+#alphaU
+#letti=[((1,8),9,10)]
+letti=[((1,2),9,10),((2,3),9,10),((3,4),9,10),((4,5),9,10),((5,6),9,10),((6,7),9,10),((7,8),9,10),((1,8),9,10)]
+#letti=[((1,2),9,10,11),((2,3),9,10,11),((3,4),9,10,11),((4,5),9,10,11),((5,6),9,10,11),((6,7),9,10,11),((7,8),9,10,11),((1,8),9,10,11)]
+expsi=[1,1,1,1,1,1,1,-1]
+'''
 
+'''
+#alphaD
+#letti=[((5,6),2,3,4),((6,7),2,3,4),((7,8),2,3,4),((1,8),2,3,4),((1,11),2,3,4),((10,11),2,3,4),((9,10),2,3,4),((5,9),2,3,4)]
+letti=[((5,6),2,3),((6,7),2,3),((7,8),2,3),((1,8),2,3),((1,11),2,3),((10,11),2,3),((9,10),2,3),((5,9),2,3)]
+expsi=[-1,-1,-1,1,-1,1,1,1]
+'''
+'''
+#alphaO
+letti=[((1,2),6,7,8),((2,3),6,7,8),((3,4),6,7,8),((4,5),6,7,8),((5,9),6,7,8),((9,10),6,7,8),((10,11),6,7,8),((1,11),6,7,8)]
+#letti=[((1,2),6),((2,3),6),((3,4),6),((4,5),6),((5,9),6),((9,10),6),((10,11),6),((1,11),6)]
+expsi=[-1,-1,-1,-1,-1,-1,-1,1]
+'''
 
+'''
+while True:
+    red=reduction2(letti,expsi,gens)
+    letti,expsi=red[0],red[1]
+    if all([el in gens for el in letti]):
+        break
+print [('g'+str(gens.index(letti[i])),expsi[i]) for i in xrange(len(letti))]
+print gens
+'''   
+
+#cycles for theta4
+'''
+#alphaU
+letti=[((1,2),9,10),((2,3),9,10),((3,4),9,10),((4,5),9,10),((5,6),9,10),((1,6),9,10)]
+expsi=[-1,-1,-1,-1,-1,1]
+'''
+'''
+#alphaM
+letti=[((4,5),2,3),((5,6),2,3),((1,6),2,3),((1,8),2,3),((7,8),2,3),((4,7),2,3)]
+expsi=[-1,-1,1,-1,1,1]
+'''
+'''
+#alphaD
+letti=[((4,7),2,3),((7,8),2,3),((1,8),2,3),((1,10),2,3),((9,10),2,3),((4,9),2,3)]
+expsi=[-1,-1,1,-1,1,1]
+'''
+'''
+#gamma
+#letti=[((4,7),1,3),((4, 5),1,3),((3, 4),1,5),((4, 7),1,5),((4, 5),1,7),((3, 4),1,7)]
+#letti=[((4,9),1,3),((4, 5),1,3),((3, 4),1,5),((4, 9),1,5),((4, 5),1,9),((3, 4),1,9)]
+#letti=[((4,9),1,3),((4, 7),1,3),((3, 4),1,7),((4, 9),1,7),((4, 7),1,9),((3, 4),1,9)]
+letti=[((4,9),3,10),((4, 5),3,10),((3, 4),5,10),((4, 9),5,10),((4, 5),9,10),((3, 4),9,10)]
+expsi=[1,-1,-1,-1,1,1]
+'''
+'''
+while True:
+    red=reduction2(letti,expsi,gens)
+    letti,expsi=red[0],red[1]
+    if all([el in gens for el in letti]):
+        break
+print [('g'+str(gens.index(letti[i])),expsi[i]) for i in xrange(len(letti))]
+'''  
+#cycles for K4
+'''
+#gamma
+#letti=[((7,9),6),((7, 8),6),((6, 7),8),((7, 9),8),((7, 8),9),((6, 7),9)]
+letti=[((5,10),4),((5, 6),4),((4, 5),6),((5, 10),6),((5, 6),9),((4, 5),10)]
+expsi=[1,-1,-1,-1,1,1]
+'''
+'''
+#omega1
+letti=[((1,2),4),((2,3),4),((3,8),4),((7,8),4),((7,9),4),((1,9),4)]
+expsi=[-1,-1,-1,1,-1,1]
+'''
+'''
+#omega2
+letti=[((3,4),10),((4,5),10),((5,6),10),((6,7),10),((7,8),10),((3,8),10)]
+expsi=[-1,-1,-1,-1,-1,1]
+'''
+'''
+#omega3
+letti=[((1,9),2),((7,9),2),((6,7),2),((5,6),2),((5,10),2),((1,10),2)]
+expsi=[-1,1,1,1,-1,1]
+'''
+'''
+#omega0
+letti=[((1,2),6),((2,3),6),((3,4),6),((4,5),6),((5,10),6),((1,10),6)]
+expsi=[-1,-1,-1,-1,-1,1]
+'''
+'''
+#letti=[((1,2),6,7),((2,3),6,7),((3,4),6,7),((4,5),6,7),((5,9),6,7),((9,10),6,7),((10,11),6,7),((1,11),6,7)]
+letti=[((1,2),6),((2,3),6),((3,4),6),((4,5),6),((5,9),6),((9,10),6),((10,11),6),((1,11),6)]
+expsi=[-1,-1,-1,-1,-1,-1,-1,1]
+while True:
+    red=reduction2(letti,expsi,gens)
+    letti,expsi=red[0],red[1]
+    if all([el in gens for el in letti]):
+        break
+print [('g'+str(gens.index(letti[i])),expsi[i]) for i in xrange(len(letti))]
+'''
