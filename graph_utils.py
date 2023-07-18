@@ -1,6 +1,8 @@
 import numpy as np
 import os
 import itertools as it
+import matplotlib.pyplot as plt
+import networkx as nx
 
 
 def load_graph_from_dataset(graph_name, subdivision):
@@ -82,3 +84,20 @@ def group_edges(graph):
             for comb in it.combinations(blocked, 2):
                 blocked_edges.append((comb[1], comb[0][1]))
     return tree, blocked_edges, del_edges, vertices
+    
+def plot_graph(graph):
+	tree, _, del_edges, _ = group_edges(graph)
+
+	G = nx.Graph()
+	G.add_edges_from(tree, style = 'solid')
+	G.add_edges_from(del_edges, style = 'dashed')
+
+	edges = G.edges()
+	styles = [G[u][v]['style'] for u,v in edges]
+
+	try:
+		nx.draw(G, pos = nx.planar_layout(G), style=styles, with_labels=True)
+	except BaseException:
+		nx.draw(G, pos = nx.circular_layout(G), style=styles, with_labels=True)
+	
+	return None

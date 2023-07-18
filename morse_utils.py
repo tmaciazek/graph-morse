@@ -81,7 +81,7 @@ def no_order_resp_edge(cell, dim, blocked_edges, del_edges):
     return (True, None)
 
 
-def all_vert_blocked(cell, dim):
+def all_vert_blocked(cell, dim, tree):
     flat = tuple([item for sublist in cell[:dim] for item in sublist]) + cell[dim:]
     for v in cell[dim:]:
         if v == 1 or next((e[0] for e in tree if e[1] == v), None) in flat:
@@ -90,8 +90,7 @@ def all_vert_blocked(cell, dim):
     return (True, None)
 
 
-def principal_reduction(cell, dim, v):
-    # print v
+def principal_reduction(cell, dim, v, tree):
     reduced = cell[:dim]
     reduced += (next(e for e in tree if e[1] == v),)
     reduced = sorted_cell(reduced, dim + 1)
@@ -109,9 +108,9 @@ def reduction2(letters, exps, criticals1, graph):
             letters_new.append(letters[i])
             exps_new.append(exps[i])
         elif no_order_resp_edge(letters[i], 1, blocked_edges, del_edges)[0]:
-            unblocked = all_vert_blocked(letters[i], 1)
+            unblocked = all_vert_blocked(letters[i], 1, tree)
             if unblocked[0] == False:
-                match = principal_reduction(letters[i], 1, unblocked[1])
+                match = principal_reduction(letters[i], 1, unblocked[1], tree)
                 bnd = boundary2(match)
                 ib = bnd[0].index(letters[i])
                 if bnd[1][ib] > 0:
@@ -141,7 +140,7 @@ def reduction2(letters, exps, criticals1, graph):
                     and v < e[1]
                     and (next((e[0] for e in tree if e[1] == v), None) in flat) == False
                 ):
-                    match = principal_reduction(letters[i], 1, v)
+                    match = principal_reduction(letters[i], 1, v, tree)
                     bnd = boundary2(match)
                     ib = bnd[0].index(letters[i])
                     if bnd[1][ib] > 0:
