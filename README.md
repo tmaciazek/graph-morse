@@ -6,8 +6,8 @@ In particular, we implement computations relating to presentations of graph brai
 
 # Folders and files in this repo
 
--  [tutorial.ipynb](tutorial.ipynb): Jupyter notebook showing how to use the code,
--  [morse_utils.py](morse_utils.py): utility functions relating to discrete Morse theory (implemenation of the principal reduction, finding the critical cells, implementation of boundary maps),
+-  [tutorial.ipynb](tutorial.ipynb): Jupyter notebook showing how to use the code.
+-  [morse_utils.py](morse_utils.py): utility functions relating to discrete Morse theory (implemenation of the principal reduction, finding the critical cells, implementation of boundary maps).
 -  [graph_utils.py](graph_utils.py): utility functions for manipulating graphs (a graph and its spanning tree are endoced as adjacency matrix with '-1' entry whenever the corresponsing edge is a **deleted edge**, i.e. an edge which is not contained in the spanning tree).
 -  [graphs_dataset](graphs_dataset): folder containing the database of graphs (the name format is `name_of_the_graph_N_subdivison`, where `subdivision` is the number of particles for which the graph is **suffciently subdivided** -- see [Abrams, A.: Configuration spaces and braid groups of graphs, PhD thesis, University of California, Berkeley, 2000]).
 
