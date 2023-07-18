@@ -4,3 +4,10 @@ Python implementations of algorithms computing topological properties of unorder
 
 In particular, we implement computations relating to presentations of graph braid groups.
 
+# Folders and files in this repo
+
+-  [tutorial.ipynb](tutorial.ipynb): Jupyter notebook showing how to use the code,
+-  [morse_utils.py](morse_utils.py): utility functions relating to discrete Morse theory (implemenation of the principal reduction, finding the critical cells, implementation of boundary maps),
+-  [graph_utils.py](graph_utils.py): utility functions for manipulating graphs (a graph and its spanning tree are endoced as adjacency matrix with '-1' entry whenever the corresponsing edge is a **deleted edge**).
+-  [graphs_dataset](graphs_dataset): folder containing the database of graphs (the name format is `name_of_the_graph_N_subdivison`)
+
