@@ -1,27 +1,13 @@
-# kaggle
-My Kaggle projects.
+# Discrete Morse theory for graph configuration spaces
 
-## Titanic
+Python implementations of algorithms computing topological properties of unordered graph configuration spaces via the discrete Morse theory. The algorithms and the underlying theory are due to Daniel Farley and Lucas Sabalka [Algebraic & Geometric Topology Volume 5 (2005) 1075–1109, Forum Math. 24 (2012) 827-859] and Ki Hyoung Ko and Hyo Won Park  [Discrete Comput Geom (2012) 48:915–963]. 
 
-This is the [Titanic - Machine Learning from Disaster](https://www.kaggle.com/competitions/titanic) competition.
+In particular, we implement computations relating to presentations of graph braid groups.
 
-Afted data cleaning ([titanic_data_cleaning.ipynb](https://github.com/tmaciazek/kaggle/blob/main/titanic/titanic_data_cleaning.ipynb)), I approach this using three techniques:
+# Folders and files in this repo
 
--  logistic regression using polynomial features (of order $2$) combined with PCA ([logistic.ipynb](https://github.com/tmaciazek/kaggle/blob/main/titanic/logistic.ipynb)),
--  a single decision tree ([tree.ipynb](https://github.com/tmaciazek/kaggle/blob/main/titanic/tree.ipynb)),
--  a random forest ([random_forest.ipynb](https://github.com/tmaciazek/kaggle/blob/main/titanic/random_forest.ipynb)).
+-  [tutorial.ipynb](tutorial.ipynb): Jupyter notebook showing how to use the code,
+-  [morse_utils.py](morse_utils.py): utility functions relating to discrete Morse theory (implemenation of the principal reduction, finding the critical cells, implementation of boundary maps),
+-  [graph_utils.py](graph_utils.py): utility functions for manipulating graphs (a graph and its spanning tree are endoced as adjacency matrix with '-1' entry whenever the corresponsing edge is a **deleted edge**, i.e. an edge which is not contained in the spanning tree).
+-  [graphs_dataset](graphs_dataset): folder containing the database of graphs (the name format is `name_of_the_graph_N_subdivison`, where `subdivision` is the number of particles for which the graph is **suffciently subdivided** -- see [Abrams, A.: Configuration spaces and braid groups of graphs, PhD thesis, University of California, Berkeley, 2000]).
 
-## Natural Language Processing with Disaster Tweets
-
-This is the [Natural Language Processing with Disaster Tweets](https://www.kaggle.com/competitions/nlp-getting-started) competition.
-
-The file [tweets_preprocessing.ipynb](https://github.com/tmaciazek/kaggle/blob/main/NLP_disaster_tweets/tweets_preprocessing.ipynb) contains data cleaning and processing, in particular:
--  inferring location country from location data and from the text of the tweet,
--  tweet text cleaning and tokenization,
--  applying word embeddings using the GloVe dataset [glove.twitter.27B](https://nlp.stanford.edu/projects/glove/).
-
-The cleaned data is subsequently fed into a recurrent neural net with two bidirectional LSTM layers shown in the schamtic picture below.
-
-<img src="NLP_disaster_tweets/net.png" width="620" height="500"> 
-
-This can be found in the notebook [lstm.ipynb](NLP_disaster_tweets/lstm.ipynb).
