@@ -1,6 +1,6 @@
 # Discrete Morse theory for graph configuration spaces
 
-Python implementations of algorithms computing topological properties of unordered graph configuration spaces via the discrete Morse theory. The algorithms and the underlying theory are due to Daniel Farley and Lucas Sabalka [Algebraic & Geometric Topology Volume 5 (2005) 1075–1109, Forum Math. 24 (2012) 827-859] and Ki Hyoung Ko and Hyo Won Park  [Discrete Comput Geom (2012) 48:915–963]. 
+Python implementations of algorithms computing topological properties of unordered graph configuration spaces via the discrete Morse theory. The algorithms and the underlying theory are due to Daniel Farley and Lucas Sabalka [Algebraic & Geometric Topology Volume 5 (2005) 1075–1109, Forum Math. 24 (2012) 827-859](https://msp.org/agt/2005/5-3/p09.xhtml) and Ki Hyoung Ko and Hyo Won Park  [Discrete Comput Geom (2012) 48:915–963](https://link.springer.com/article/10.1007/s00454-012-9459-8). 
 
 In particular, we implement computations relating to presentations of graph braid groups.
 
