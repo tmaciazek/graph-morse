@@ -12,7 +12,7 @@ def find_crit_cells(graph, dim=1, Npart=2):
 	Finds the critical cells of the Morse complex.
 	
 	Arguments:
-	graph - adjacency matrix of the graph with a spanning tree marked by '-1' entries
+	graph - adjacency matrix of the graph with deleted edges marked by '-1'
 	dim - dimension of the critical cells
 	Npart - number of particles
 	
@@ -168,7 +168,7 @@ def reduction2(letters, exps, criticals1, graph):
 	letters - list of 2-cells in the word
 	exps - exponents of the letters
 	criticals1 - set of critical 1-cells
-	graph - adjacency matrix of the graph with a spanning tree marked by '-1' entries
+	graph - adjacency matrix of the graph with deleted edges marked by '-1'
 	
 	Returns:
 	letters_new - the critical cells in the Morse image of the boundary word of
