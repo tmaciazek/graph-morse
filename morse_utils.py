@@ -8,17 +8,17 @@ from graph_utils import *
 
 
 def find_crit_cells(graph, dim=1, Npart=2):
-	"""
-	Finds the critical cells of the Morse complex.
-	
-	Arguments:
-	graph - adjacency matrix of the graph with deleted edges marked by '-1'
-	dim - dimension of the critical cells
-	Npart - number of particles
-	
-	Returns:
-	cells - the set of critical cells of dimension dim of graph with Npart particles
-	"""
+    """
+    Finds the critical cells of the Morse complex.
+
+    Arguments:
+    graph - adjacency matrix of the graph with deleted edges marked by '-1'
+    dim - dimension of the critical cells
+    Npart - number of particles
+
+    Returns:
+    cells - the set of critical cells of dimension dim of graph with Npart particles
+    """
     tree, blocked_edges, del_edges, vert = group_edges(graph)
     cells = set()
     n_del_min = 2 * dim - Npart
@@ -60,9 +60,9 @@ def find_crit_cells(graph, dim=1, Npart=2):
 
 
 def boundary2(cell):
-	"""
-	Returns the boundary word of cell.
-	"""
+    """
+    Returns the boundary word of cell.
+    """
     letters = [None] * 4
     exps = [None] * 4
     letters[3] = cell[:0] + cell[1:2] + tuple(sorted(cell[2:] + (cell[0][1],)))
@@ -77,32 +77,32 @@ def boundary2(cell):
 
 
 def sorted_cell(cell, dim):
-	"""
-	Sorts elements of the cell.
-	
-	Arguments:
-	cell - a cell in the discrete configuration space
-	dim - dimension of the cell
-	"""
+    """
+    Sorts elements of the cell.
+
+    Arguments:
+    cell - a cell in the discrete configuration space
+    dim - dimension of the cell
+    """
     return tuple(sorted(cell[:dim], key=itemgetter(0, 1))) + tuple(sorted(cell[dim:]))
 
 
 def no_order_resp_edge(cell, dim, blocked_edges, del_edges):
-	"""
-	Checks if all the edges in the given cell are non-order respecting.
-	
-	Arguments:
-	cell - a cell in the discrete configuration space
-	dim - dimension of the cell
-	blocked_edges - list fo blocked edges
-	del_edges  - list of deleted edges
-	
-	Returns:
-	(True, None) - if all the edges in cell are non-order respecting
-	(False, e) - if there exist an order-respecting edge in cell
-	e - the minimal order respecting edge
-	
-	"""
+    """
+    Checks if all the edges in the given cell are non-order respecting.
+
+    Arguments:
+    cell - a cell in the discrete configuration space
+    dim - dimension of the cell
+    blocked_edges - list fo blocked edges
+    del_edges  - list of deleted edges
+
+    Returns:
+    (True, None) - if all the edges in cell are non-order respecting
+    (False, e) - if there exist an order-respecting edge in cell
+    e - the minimal order respecting edge
+
+    """
     edges_ordered = sorted(cell[:dim], key=itemgetter(1, 0))
     for ic in range(dim):
         if edges_ordered[ic] in del_edges:
@@ -118,20 +118,20 @@ def no_order_resp_edge(cell, dim, blocked_edges, del_edges):
 
 
 def all_vert_blocked(cell, dim, tree):
-	"""
-	Checks if all the vertices in the given cell are blocked.
-	
-	Arguments:
-	cell - a cell in the discrete configuration space
-	dim - dimension of the cell
-	tree - the given spanning tree of the graph
-	
-	Returns:
-	(True, None) - if all vertices in cell are blocked
-	(False, v) - if there exist an unblocked vetex in cell
-	v - the smallest unblocked vertex
-	
-	"""
+    """
+    Checks if all the vertices in the given cell are blocked.
+
+    Arguments:
+    cell - a cell in the discrete configuration space
+    dim - dimension of the cell
+    tree - the given spanning tree of the graph
+
+    Returns:
+    (True, None) - if all vertices in cell are blocked
+    (False, v) - if there exist an unblocked vetex in cell
+    v - the smallest unblocked vertex
+
+    """
     flat = tuple([item for sublist in cell[:dim] for item in sublist]) + cell[dim:]
     for v in cell[dim:]:
         if v == 1 or next((e[0] for e in tree if e[1] == v), None) in flat:
@@ -141,17 +141,17 @@ def all_vert_blocked(cell, dim, tree):
 
 
 def principal_reduction(cell, dim, v, tree):
-	"""
-	Performs the principal reduction.
-	
-	Arguments:
-	cell - a cell in the discrete configuration space
-	dim - dimension of the cell
-	v - vertex with respect to which the principal reduction is to be done
-	
-	Returns:
-	reduced - the cell which is the result of the principal reduction
-	"""
+    """
+    Performs the principal reduction.
+
+    Arguments:
+    cell - a cell in the discrete configuration space
+    dim - dimension of the cell
+    v - vertex with respect to which the principal reduction is to be done
+
+    Returns:
+    reduced - the cell which is the result of the principal reduction
+    """
     reduced = cell[:dim]
     reduced += (next(e for e in tree if e[1] == v),)
     reduced = sorted_cell(reduced, dim + 1)
@@ -161,20 +161,20 @@ def principal_reduction(cell, dim, v, tree):
 
 
 def reduction2(letters, exps, criticals1, graph):
-	"""
-	Finds the Morse image of the boundary word of a word of 2-cells.
-	
-	Arguments:
-	letters - list of 2-cells in the word
-	exps - exponents of the letters
-	criticals1 - set of critical 1-cells
-	graph - adjacency matrix of the graph with deleted edges marked by '-1'
-	
-	Returns:
-	letters_new - the critical cells in the Morse image of the boundary word of
-					the given word
-	exps_new  - the exponends of letters in letters_new
-	"""
+    """
+    Finds the Morse image of the boundary word of a word of 2-cells.
+
+    Arguments:
+    letters - list of 2-cells in the word
+    exps - exponents of the letters
+    criticals1 - set of critical 1-cells
+    graph - adjacency matrix of the graph with deleted edges marked by '-1'
+
+    Returns:
+    letters_new - the critical cells in the Morse image of the boundary word of
+                    the given word
+    exps_new  - the exponends of letters in letters_new
+    """
     tree, blocked_edges, del_edges, vertices = group_edges(graph)
     letters_new = []
     exps_new = []
@@ -267,3 +267,10 @@ def graph_braid_group(graph, n_particles=2):
         )
 
     return gens, rels
+
+def find_morse_image(letts, exps, gens, graph):
+	while True:
+		letts, exps = reduction2(letts, exps, gens, graph)
+		if all([el in gens for el in letts]):
+			break
+	return letts, exps
